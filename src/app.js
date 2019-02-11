@@ -9,6 +9,7 @@ import {
   Loading,
   Error
 } from "./app-helpers";
+import queryString from 'query-string';
 
 const cli = window._CLI;
 
@@ -54,7 +55,8 @@ function GitHubApp({ repo, sha, path }) {
   const [commits, commitsLoading, commitsError] = useCommitsFetcher({
     repo,
     sha,
-    path
+    path,
+    top: queryString.parse(window.location.search).top || 10
   });
 
   const loading = langLoading || commitsLoading;

@@ -127,8 +127,8 @@ export function useLanguageLoader(path) {
   }, [path]);
 }
 
-export function useCommitsFetcher({ repo, sha, path }) {
-  return useLoader(async () => getCommits(repo, sha, path), [repo, sha, path]);
+export function useCommitsFetcher({ repo, sha, path, top }) {
+  return useLoader(async () => getCommits(repo, sha, path, top), [repo, sha, path]);
 }
 
 export function useDocumentTitle(title) {
@@ -150,7 +150,7 @@ export function getUrlParams() {
   if (action !== "commits" && action !== "blob") {
     return [];
   }
-  console.info([owner + "/" + reponame, sha, "/" + paths.join("/")]);
+
   return [owner + "/" + reponame, sha, "/" + paths.join("/")];
 }
 

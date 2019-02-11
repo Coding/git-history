@@ -31,7 +31,7 @@ async function getContent(repo, sha, path) {
 export async function getCommits(repo, sha, path, top = 10) {
 
   const commitsResponse = await fetch(
-    `/api/user/codingcorp/project/${repo.split('/')[1]}/git/commits/${sha}${path}?page=1`,
+    `/api/user/codingcorp/project/${repo.split('/')[1]}/git/commits/${sha}${path}?page=1&pageSize=${top}`,
     { headers: getHeaders(), credentials: 'include' }
   );
 
