@@ -28,10 +28,10 @@ async function getContent(repo, sha, path) {
 
 }
 
-export async function getCommits(repo, sha, path, top = 10) {
+export async function getCommits(repo, sha, path, page = 1, pageSize = 10) {
 
   const commitsResponse = await fetch(
-    `/api/user/codingcorp/project/${repo.split('/')[1]}/git/commits/${sha}${path}?page=1&pageSize=${top}`,
+    `/api/user/codingcorp/project/${repo.split('/')[1]}/git/commits/${sha}${path}?page=${page}&pageSize=${pageSize}`,
     { headers: getHeaders(), credentials: 'include' }
   );
 
@@ -42,7 +42,7 @@ export async function getCommits(repo, sha, path, top = 10) {
   const commitsJson = await commitsResponse.json();
 
 
-    const commits = commitsJson.data.commits.list.slice(0,top).map(commit=>({
+    const commits = commitsJson.data.commits.list.slice(0, pageSize).map(commit=>({
         sha:commit.commitId,
         date: new Date(commit.commitTime),
         author:{

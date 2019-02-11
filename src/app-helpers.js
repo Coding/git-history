@@ -127,8 +127,8 @@ export function useLanguageLoader(path) {
   }, [path]);
 }
 
-export function useCommitsFetcher({ repo, sha, path, top }) {
-  return useLoader(async () => getCommits(repo, sha, path, top), [repo, sha, path]);
+export function useCommitsFetcher({ repo, sha, path, page, pageSize }) {
+  return useLoader(async () => getCommits(repo, sha, path, page, pageSize), [repo, sha, path]);
 }
 
 export function useDocumentTitle(title) {
