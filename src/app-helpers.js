@@ -142,15 +142,15 @@ export function getUrlParams() {
     ,
     owner,
     reponame,
+    git,
     action,
     sha,
     ...paths
   ] = window.location.pathname.split("/");
-
   if (action !== "commits" && action !== "blob") {
     return [];
   }
-
+  console.info([owner + "/" + reponame, sha, "/" + paths.join("/")]);
   return [owner + "/" + reponame, sha, "/" + paths.join("/")];
 }
 

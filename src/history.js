@@ -6,6 +6,7 @@ import Slide from "./slide";
 import "./comment-box.css";
 
 function CommitInfo({ commit, move, onClick }) {
+    console.info(commit)
   const message = commit.message.split("\n")[0].slice(0, 80);
   const isActive = Math.abs(move) < 0.5;
   return (
