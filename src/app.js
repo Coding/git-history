@@ -1,14 +1,15 @@
-import React from "react";
-import History from "./history";
-import Landing from "./landing";
+import React from 'react';
+import History from './history';
+import Landing from './landing';
 import {
   getUrlParams,
   useLanguageLoader,
   useCommitsFetcher,
   useDocumentTitle,
   Loading,
-  Error
-} from "./app-helpers";
+  Error,
+} from './app-helpers';
+import {oauth} from './github';
 import queryString from 'query-string';
 
 const cli = window._CLI;
@@ -18,22 +19,29 @@ export default function App() {
     return <CliApp data={cli} />;
   }
 
-  const [repo, sha, path] = getUrlParams();
+  const [username, repo, sha, path] = getUrlParams();
+  if (window.location.search) {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    if (code) {
+      oauth(code);
+    }
+  }
 
   if (!repo) {
     return <Landing />;
   } else {
-    return <GitHubApp repo={repo} sha={sha} path={path} />;
+    return <GitHubApp username={username} repo={repo} sha={sha} path={path} />;
   }
 }
 
-function CliApp({ data }) {
-  let { commits, path } = data;
+function CliApp({data}) {
+  let {commits, path} = data;
 
-  const fileName = path.split("/").pop();
+  const fileName = path.split('/').pop();
   useDocumentTitle(`Git History - ${fileName}`);
 
-  commits = commits.map(commit => ({ ...commit, date: new Date(commit.date) }));
+  commits = commits.map(commit => ({...commit, date: new Date(commit.date)}));
   const [lang, loading, error] = useLanguageLoader(path);
 
   if (error) {
@@ -47,8 +55,8 @@ function CliApp({ data }) {
   return <History commits={commits} language={lang} />;
 }
 
-function GitHubApp({ repo, sha, path }) {
-  const fileName = path.split("/").pop();
+function GitHubApp({username, repo, sha, path}) {
+  const fileName = path.split('/').pop();
   useDocumentTitle(`Git History - ${fileName}`);
 
   const [lang, langLoading, langError] = useLanguageLoader(path);
@@ -56,11 +64,12 @@ function GitHubApp({ repo, sha, path }) {
   const parsed = queryString.parse(window.location.search);
 
   const [commits, commitsLoading, commitsError] = useCommitsFetcher({
+    username,
     repo,
     sha,
     path,
     pageSize: parsed.pageSize || 10,
-    page: parsed.page || 1
+    page: parsed.page || 1,
   });
 
   const loading = langLoading || commitsLoading;
@@ -75,7 +84,7 @@ function GitHubApp({ repo, sha, path }) {
   }
 
   if (!commits.length) {
-    return <Error error={{ status: 404 }} />;
+    return <Error error={{status: 404}} />;
   }
 
   return <History commits={commits} language={lang} />;
