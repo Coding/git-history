@@ -6,11 +6,11 @@ const CODING_URL = {
   oauth: baseUrl + '/oauth_authorize.html',
   access_token: baseUrl + '/api/oauth/access_token',
   base: baseUrl,
-  client_id: process.env.CLIENT_ID || 'ae1a676844d6257f82faa0713fb52e08',
-  client_secret:
-    process.env.CLIENT_SECRET || '2f4f508ff8750bde7462da52565ac4b493b23448',
 };
 const REDIRECT_URI = process.env.HOST_URL || 'http://127.0.0.1:3000';
+const CLIENT_ID = process.env.CLIENT_ID || 'ae1a676844d6257f82faa0713fb52e08';
+const CLIENT_SECRET =
+  process.env.CLIENT_SECRET || '2f4f508ff8750bde7462da52565ac4b493b23448';
 
 export function isLoggedIn() {
   return !!window.localStorage.getItem(TOKEN_KEY);
@@ -84,8 +84,8 @@ export async function getCommits(
 
 export async function oauth(code) {
   const oauthParams = Object.assign({
-    client_id: CODING_URL.client_id,
-    client_secret: CODING_URL.client_secret,
+    client_id: CLIENT_ID,
+    client_secret: CLIENT_SECRET,
     grant_type: 'authorization_code',
     code,
   });
@@ -116,7 +116,7 @@ export function auth() {
       scope: 'all',
       redirect_uri,
       response_type: 'code',
-      client_id: CODING_URL.client_id,
+      client_id: CLIENT_ID,
     });
 
     const url = `${oauthUri}${Query.stringify(oauthParams)}`;
