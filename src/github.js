@@ -10,7 +10,7 @@ const CODING_URL = {
   client_secret:
     process.env.CLIENT_SECRET || '2f4f508ff8750bde7462da52565ac4b493b23448',
 };
-const REDIRECT_URI = process.env.HOST || 'http://127.0.0.1:3000';
+const REDIRECT_URI = process.env.HOST_URL || 'http://127.0.0.1:3000';
 
 export function isLoggedIn() {
   return !!window.localStorage.getItem(TOKEN_KEY);
