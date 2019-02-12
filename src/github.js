@@ -1,5 +1,4 @@
 import {Query} from './utils';
-import {Base64} from 'js-base64';
 const TOKEN_KEY = 'github-token';
 
 const baseUrl = 'https://coding.net';
@@ -7,15 +6,11 @@ const CODING_URL = {
   oauth: baseUrl + '/oauth_authorize.html',
   access_token: baseUrl + '/api/oauth/access_token',
   base: baseUrl,
-  client_id: 'ae1a676844d6257f82faa0713fb52e08',
-  client_secret: '2f4f508ff8750bde7462da52565ac4b493b23448',
+  client_id: process.env.CLIENT_ID || 'ae1a676844d6257f82faa0713fb52e08',
+  client_secret:
+    process.env.CLIENT_SECRET || '2f4f508ff8750bde7462da52565ac4b493b23448',
 };
-const REDIRECT_URI = 'http://127.0.0.1:3000';
-
-function getHeaders() {
-  const token = window.localStorage.getItem(TOKEN_KEY);
-  return token ? {Authorization: `bearer ${token}`} : {};
-}
+const REDIRECT_URI = process.env.HOST || 'http://127.0.0.1:3000';
 
 export function isLoggedIn() {
   return !!window.localStorage.getItem(TOKEN_KEY);
@@ -27,7 +22,6 @@ async function getContent(username, repo, sha, path) {
     `/api/user/${username}/project/${
       repo.split('/')[1]
     }/git/blob/${sha}${encodeURIComponent(path)}?access_token=${token}`,
-    {headers: getHeaders(), credentials: 'include'},
   );
 
   if (!contentResponse.ok) {
@@ -50,7 +44,6 @@ export async function getCommits(
     `/api/user/${username}/project/${
       repo.split('/')[1]
     }/git/commits/${sha}${path}?page=${page}&pageSize=${pageSize}&access_token=${token}`,
-    {headers: getHeaders(), credentials: 'include'},
   );
 
   if (!commitsResponse.ok) {

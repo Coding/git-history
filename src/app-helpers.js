@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {getLanguage, loadLanguage} from './language-detector';
-import {auth, isLoggedIn, getCommits, oauth} from './github';
+import {auth, isLoggedIn, getCommits} from './github';
 
 export function Center({children}) {
   return (
