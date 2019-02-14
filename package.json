@@ -25,10 +25,12 @@
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-react": "7.11.1",
+    "express": "^4.16.4",
     "file-loader": "2.0.0",
     "fork-ts-checker-webpack-plugin-alt": "0.4.14",
     "fs-extra": "7.0.0",
     "html-webpack-plugin": "4.0.0-alpha.2",
+    "http-proxy-middleware": "^0.19.1",
     "identity-obj-proxy": "3.0.0",
     "jest": "23.6.0",
     "jest-pnp-resolver": "1.0.1",
@@ -66,33 +68,25 @@
     "format": "prettier --write '**/*.{js,jsx,md,json,html,css,yml}' --ignore-path .gitignore",
     "test-prettier": "prettier --check '**/*.{js,jsx,md,json,html,css,yml}' --ignore-path .gitignore",
     "test-cra": "node scripts/test.js",
-    "test": "run-s test-prettier test-cra"
+    "test": "run-s test-prettier test-cra",
+    "server": "./node_modules/nodemon/bin/nodemon.js --watch / server/index.js"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
+  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"],
   "devDependencies": {
     "@babel/plugin-syntax-json-strings": "^7.2.0",
     "@babel/plugin-transform-react-jsx": "^7.3.0",
     "@babel/plugin-transform-react-jsx-source": "^7.2.0",
+    "nodemon": "^1.18.10",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.16.4"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*.d.ts"
-    ],
+    "collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}", "!src/**/*.d.ts"],
     "resolver": "jest-pnp-resolver",
-    "setupFiles": [
-      "react-app-polyfill/jsdom"
-    ],
+    "setupFiles": ["react-app-polyfill/jsdom"],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}"
@@ -126,8 +120,6 @@
     ]
   },
   "babel": {
-    "presets": [
-      "react-app"
-    ]
+    "presets": ["react-app"]
   }
 }
