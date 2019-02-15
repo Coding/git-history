@@ -35,6 +35,7 @@
     "jest": "23.6.0",
     "jest-pnp-resolver": "1.0.1",
     "jest-resolve": "23.6.0",
+    "join-path": "^1.1.1",
     "js-base64": "^2.5.1",
     "mini-css-extract-plugin": "0.4.3",
     "netlify-auth-providers": "^1.0.0-alpha5",
@@ -74,7 +75,12 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"],
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
   "devDependencies": {
     "@babel/plugin-syntax-json-strings": "^7.2.0",
     "@babel/plugin-transform-react-jsx": "^7.3.0",
@@ -84,9 +90,14 @@
     "prettier": "^1.16.4"
   },
   "jest": {
-    "collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}", "!src/**/*.d.ts"],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts"
+    ],
     "resolver": "jest-pnp-resolver",
-    "setupFiles": ["react-app-polyfill/jsdom"],
+    "setupFiles": [
+      "react-app-polyfill/jsdom"
+    ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}"
@@ -120,6 +131,8 @@
     ]
   },
   "babel": {
-    "presets": ["react-app"]
+    "presets": [
+      "react-app"
+    ]
   }
 }
